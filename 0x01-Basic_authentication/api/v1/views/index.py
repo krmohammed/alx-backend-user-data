@@ -36,4 +36,4 @@ def unauth() -> None:
 @app_views.route("/forbidden", strict_slashes=False, methods=["GET"])
 def forbidden() -> None:
     """forbidden"""
-    abort(403, Description="Forbidden")
+    abort(403)
