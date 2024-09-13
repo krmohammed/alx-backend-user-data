@@ -11,7 +11,15 @@ class Auth:
         """Check if the request requires authentication
         based on the path and excluded paths
         """
-        return False
+        if path is None:
+            return True
+        if exluded_paths is None or len(exluded_paths) < 1:
+            return True
+        if not path.endswith("/"):
+            path += "/"
+        if path in exluded_paths:
+            return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """Retrieve the authorization header from the request"""
