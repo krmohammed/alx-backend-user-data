@@ -13,14 +13,10 @@ class Auth:
         """
         return False
 
-
     def authorization_header(self, request=None) -> str:
-        """Retrieve the authorization header from the request
-        """
+        """Retrieve the authorization header from the request"""
         return None
-    
 
-    def current_user(self, request=None) -> TypeVar('User'):
-        """Retrieve the current user from the request
-        """
+    def current_user(self, request=None) -> TypeVar("User"):
+        """Retrieve the current user from the request"""
         return None
