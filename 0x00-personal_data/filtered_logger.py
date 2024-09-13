@@ -11,7 +11,6 @@ def filter_datum(
     """returns a log message obfuscated"""
     obfuscated_message = message
     for field in fields:
-        message = re.sub(
-            f"{field}=.*?{separator}", f"{field}={redaction}{separator}", message
-        )
+        message = re.sub(f"{field}=.*?{separator}",
+                        f"{field}={redaction}{separator}", message)
     return message
