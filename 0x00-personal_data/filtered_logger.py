@@ -49,6 +49,21 @@ def get_db() -> mysql.connector.MySQLConnection:
     return mysql.connector.connect(**config)
 
 
+def main():
+    """main"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    headings = [i[0] for i in cursor.description]
+    logger = get_logger()
+
+    for row in cursor:
+        row_str = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, headings))
+        logger.info(row_str.strip())
+    cursor.close()
+    db.close()
+
+
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
