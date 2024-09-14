@@ -7,23 +7,27 @@ from typing import List, TypeVar
 class Auth:
     """Authentication class"""
 
-    def require_auth(self, path: str, exluded_paths: List[str]) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Check if the request requires authentication
         based on the path and excluded paths
         """
         if path is None:
             return True
-        if exluded_paths is None or len(exluded_paths) < 1:
+        if excluded_paths is None or len(excluded_paths) < 1:
             return True
         if not path.endswith("/"):
             path += "/"
-        if path in exluded_paths:
+        if path in excluded_paths:
             return False
         return True
 
     def authorization_header(self, request=None) -> str:
         """Retrieve the authorization header from the request"""
-        return None
+        if request is None:
+            return None
+        if not request.headers.get("Authorization"):
+            return None
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar("User"):
         """Retrieve the current user from the request"""
