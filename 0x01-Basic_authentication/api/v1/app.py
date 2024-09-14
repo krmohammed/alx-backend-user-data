@@ -15,25 +15,25 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 auth_type = getenv("AUTH_TYPE")
-excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+excluded_paths = ["/api/v1/status/", "/api/v1/unauthorized/", "/api/v1/forbidden/"]
 
 if auth_type:
     from api.v1.auth.auth import Auth
+
     auth = Auth()
 
 
 @app.before_request
-def before_req_hander():
+def before_req_hander() -> None:
     """before request hander"""
     if auth is None:
         return
-    if auth.require_auth(request.path, exluded_paths):
+    if auth.require_auth(request.path, excluded_paths):
         return
-    if not auth.authorization_headers(request):
+    if auth.authorization_headers(request) is None:
         abort(401)
-    if not auth.current_user(request):
+    if auth.current_user(request) is None:
         abort(403)
-
 
 
 @app.errorhandler(404)
