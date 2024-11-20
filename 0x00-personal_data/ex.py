@@ -7,6 +7,7 @@ from typing import List
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """filter datum"""
-    for f in fields:
-        message = re.sub(f'{f}=.*?{separator}', f'{f}={redaction}{separator}', message)
+    for field in message.split(separator):
+        if field.split('=')[0] in fields:
+            message = re.sub(field.split('=')[1], redaction, message)
     return message
