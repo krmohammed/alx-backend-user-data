@@ -4,7 +4,8 @@ import re
 from typing import List
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     """filter datum"""
     for field in message.split(separator):
         if field.split('=')[0] in fields:
