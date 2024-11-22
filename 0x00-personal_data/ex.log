@@ -1,0 +1,4 @@
+DEBUG:__main__:this message should go to the log file
+INFO:__main__:so should this
+WARNING:__main__:and this, too
+ERROR:__main__:and non-ascii stuff, too, like ....
